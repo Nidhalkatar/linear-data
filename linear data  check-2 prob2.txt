@@ -1,0 +1,81 @@
+sol1
+ALGORITHM Element 
+VAR
+    tab1, tab2: Array_Of integer 
+    i, j, k, sum: integer 
+    str: string 
+
+
+BEGIN
+for i from 0 to tab1.length -1 do 
+ for i from 0 to tab2.length -1 do 
+    read tab1[i]
+    read tab2[i]
+End for 
+
+sum :=0
+for j from 0 to tab1.length -1 do
+  for k from 0 to tab2.length -1 do 
+   if tab1[j] <> tab2[k]
+    then sum += tab1[j]  AND 
+    str :=  str.concat ("," tab1[j] )
+    end if 
+    k ++
+    j ++
+  End for 
+
+
+for k from 0 to tab2.length -1 do
+  for j from 0 to tab1.length -1 do
+   if tab1[j] <> tab2[k]
+    then sum += tab1[j] AND 
+    str :=  str.concat ("," tab1[j] )
+    end if 
+    j ++
+    k++
+ end for 
+End for 
+write (sum)
+END
+
+---sol2---
+
+ALGORITHM hash-tab
+VAR
+   keys : ARRAY_OF INTEGER[40];
+   tab1 , tab2 : Array_Of integer[20];
+    htab : HASH_TABLE<INTEGER,INTEGER>;
+   i, j,k, sum : INTEGER;
+
+
+BEGIN
+for i from 0 to tab1.length -1 do 
+ for i from 0 to tab2.length -1 do 
+    read tab1[i]
+    read tab2[i]
+End for 
+ 
+ for i from 0 to tab1.length -1 STEP 1  DO
+        IF (htab.lookup(tab1[i]) = TRUE) THEN
+            k := hatb.get(tab1[i]);
+            htab.insert(tab1[i],k+1);
+        ELSE
+            htab.insert(tab1[i],1);
+        END_IF
+    END_FOR
+
+    for i from 0 to tab2.length -1 STEP 1  DO
+        IF (htab.lookup(tab2[i]) = TRUE) THEN
+            k := htab.get(tab2[i]);
+            htab.insert(tab2[i],k+1);
+        ELSE
+            htab.insert(tab2[i],1);
+        END_IF
+    END_FOR
+
+     keys := dict.getKeys();
+    for i from 0 to keys.length -1 STEP 1  DO
+        IF (hash.get(keys[i]) = 1) THEN
+            sum := sum +keys[i];
+        END_IF
+    END_FOR
